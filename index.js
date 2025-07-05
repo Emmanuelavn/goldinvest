@@ -20,7 +20,6 @@ const upload = multer({ storage, limits: { fileSize: 5000000 }, fileFilter: (req
 if (!fs.existsSync('public/uploads')) fs.mkdirSync('public/uploads', { recursive: true });
 
 const app = express();
-const port = 3000;
 const TRON_ADDRESS = process.env.TRON_ADDRESS || 'TLuWf9CgWSqFqtenm5QVb6iHrtsYGkdfJH';
 const TRON_API_KEY = process.env.TRON_API_KEY || 'c04fc1f5-5e66-41c2-a00a-70b4e368614f';
 
@@ -714,4 +713,5 @@ app.post('/update-profile-picture', checkAuth, upload.single('profile_image'), a
 app.delete('/notifications/:id', checkAuth, async (req, res) => { try { await db.query('DELETE FROM notifications WHERE id = ? AND user_id = ?', [req.params.id, req.session.user_id]); res.json({ success: true }); } catch (e) { res.status(500).json({ success: false, error: 'Erreur serveur.' }); } });
 app.get('/api/trx-rate', async (req, res) => { try { res.json({ rate: await getTrxRate() }); } catch (e) { res.status(500).json({ error: 'Impossible de récupérer le taux.' }); } });
 
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Serveur lancé sur http://localhost:${port}`));
