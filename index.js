@@ -343,15 +343,27 @@ app.get('/payment', checkAuth, async (req, res) => {
 
 async function getTrxRate() {
   try {
-    const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
-      params: { ids: 'tron', vs_currencies: 'usd' }
+    // On appelle l'API de Binance pour le prix TRX/USDT
+    // USDT est un stablecoin qui vaut quasiment toujours 1 USD
+    const response = await axios.get('https://api.binance.com/api/v3/ticker/price', {
+      params: { symbol: 'TRXUSDT' }
     });
-    const usdRate = response.data.tron.usd;
-    const usdToFcfRate = 600; 
-    return usdRate * usdToFcfRate;
+
+    if (!response.data || !response.data.price) {
+        throw new Error("Réponse invalide de l'API Binance.");
+    }
+
+    const usdRate = parseFloat(response.data.price);
+    const usdToFcfRate = 600; // Approximation
+    const trxToFcfRate = usdRate * usdToFcfRate;
+    
+    console.log(chalk.blue(`[TAUX BINANCE] Taux TRX/FCFA récupéré : ${trxToFcfRate.toFixed(4)}`));
+    
+    return trxToFcfRate;
+
   } catch (error) {
-    console.error('Erreur lors de la récupération du taux de change de CoinGecko:', error.message);
-    return 80;
+    console.error(chalk.red.bold('[ERREUR TAUX] Impossible de récupérer le taux de change de Binance :'), error.message);
+    throw new Error("Le service de taux de change est temporairement indisponible.");
   }
 }
 
