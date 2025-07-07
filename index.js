@@ -346,12 +346,29 @@ async function getTrxRate() {
     const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
       params: { ids: 'tron', vs_currencies: 'usd' }
     });
+
+    // On vérifie que la réponse de l'API est bien celle attendue
+    if (!response.data || !response.data.tron || !response.data.tron.usd) {
+        throw new Error("Réponse invalide de l'API CoinGecko. Le format a peut-être changé.");
+    }
+
     const usdRate = response.data.tron.usd;
-    const usdToFcfRate = 600; 
-    return usdRate * usdToFcfRate;
+    const usdToFcfRate = 600; // Approximation
+    const trxToFcfRate = usdRate * usdToFcfRate;
+    
+    // Log pour voir le taux réel récupéré, c'est utile pour le débogage
+    console.log(`[TAUX] Taux TRX/FCFA calculé : ${trxToFcfRate.toFixed(4)}`);
+    
+    return trxToFcfRate;
+
   } catch (error) {
-    console.error('Erreur lors de la récupération du taux de change de CoinGecko:', error.message);
-    return 80;
+    // Si une erreur se produit (réseau, format de réponse, etc.)
+    console.error('[ERREUR TAUX] Impossible de récupérer le taux de change :', error.message);
+    
+    // On propage l'erreur au lieu de retourner une fausse valeur.
+    // La route qui a appelé cette fonction (ex: /payment) va attraper cette erreur
+    // dans son propre bloc try...catch et s'arrêter proprement.
+    throw new Error("Le service de taux de change est temporairement indisponible.");
   }
 }
 
@@ -711,7 +728,8 @@ app.post('/cancel-investment', checkAuth, async (req, res) => {
 
 app.post('/update-profile-picture', checkAuth, upload.single('profile_image'), async (req, res) => { if (!req.file) return res.status(400).json({ success: false, error: 'Aucun fichier.' }); const imageUrl = `/uploads/${req.file.filename}`; try { await db.query('UPDATE users SET profile_image_url = ? WHERE id = ?', [imageUrl, req.session.user_id]); res.json({ success: true, message: 'Image mise à jour.', newImageUrl: imageUrl }); } catch (e) { res.status(500).json({ success: false, error: 'Erreur sauvegarde.' }); } });
 app.delete('/notifications/:id', checkAuth, async (req, res) => { try { await db.query('DELETE FROM notifications WHERE id = ? AND user_id = ?', [req.params.id, req.session.user_id]); res.json({ success: true }); } catch (e) { res.status(500).json({ success: false, error: 'Erreur serveur.' }); } });
-app.get('/api/trx-rate', async (req, res) => { try { res.json({ rate: await getTrxRate() }); } catch (e) { res.status(500).json({ error: 'Impossible de récupérer le taux.' }); } });
+app.get('/api/trx-rate', async (req, res) => { try { res.json({ rate: await getTrxRate() }); }
+ catch (e) { res.status(500).json({ error: 'Impossible de récupérer le taux.' }); } });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Serveur lancé sur http://localhost:${port}`));
