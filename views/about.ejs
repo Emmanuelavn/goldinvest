@@ -3,205 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Architecture de la Confiance - GoldInvest</title>
+    <title>Notre Forteresse de Confiance - GoldInvest</title>
     <link href="https://cdn.tailwindcss.com/tailwindcss.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         :root {
-            --color-bg: #0A0A0A;
-            --color-text: #A1A1AA;
-            --color-text-strong: #E4E4E7;
-            --color-primary: #D4AF37; /* Or métallique */
-            --color-border: #27272A;
+            --color-bg-start: #1e293b; /* Bleu nuit de votre footer */
+            --color-bg-end: #0f172a;
+            --color-text: #cbd5e1; /* Gris clair pour la lisibilité */
+            --color-text-strong: #f1f5f9;
+            --color-primary-start: #f59e0b; /* Or de votre charte */
+            --color-primary-end: #fbbf24;
+            --color-border: #334155;
         }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg);
+            font-family: 'Lexend', sans-serif;
+            background: linear-gradient(160deg, var(--color-bg-start), var(--color-bg-end));
             color: var(--color-text);
-            overflow-x: hidden;
         }
-        .font-display { font-family: 'Space Grotesk', sans-serif; }
+        .font-serif { font-family: 'DM Serif Display', serif; }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, var(--color-primary-start), var(--color-primary-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        .glow-border {
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); } 40% { transform: translate(-50%, -20px); } 60% { transform: translate(-50%, -10px); } }
+
+        .section-container {
+            position: relative;
+            padding: 5rem 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .section-number {
+            position: absolute;
+            top: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8rem;
+            font-weight: 700;
+            color: rgba(51, 65, 85, 0.2);
+            z-index: 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--color-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
             position: relative;
         }
-        .glow-border::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: conic-gradient(from 180deg at 50% 50%, var(--color-border), var(--color-primary), var(--color-border));
-            -webkit-mask: 
-                linear-gradient(#fff 0 0) content-box, 
-                linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+        .feature-card:hover {
+            border-color: var(--color-primary-start);
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.05);
         }
-        .glow-border:hover::before { opacity: 1; }
-
-        .spotlight {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-            opacity: 0;
-            z-index: -1;
+        .feature-card-icon {
+            background: linear-gradient(135deg, var(--color-primary-start), var(--color-primary-end));
+            color: var(--color-bg-start);
         }
-
-        .primary-highlight {
-            color: var(--color-primary);
-        }
-
-        .btn-cta {
-            background-color: var(--color-primary);
-            color: var(--color-bg);
-            border: 1px solid var(--color-primary);
-            transition: all 0.3s ease;
-        }
-        .btn-cta:hover {
-            background-color: transparent;
-            color: var(--color-primary);
-        }
-
-        /* Animation pour le compteur de sécurité */
-        @keyframes counter {
-            from { --num: 0; }
-            to { --num: 99.9; }
+        
+        .final-cta {
+            background: linear-gradient(135deg, var(--color-primary-start), var(--color-primary-end));
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <div class="spotlight"></div>
-
-    <!-- Section Héros -->
-    <header class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
-        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        <div class="relative z-10 px-6 animate__animated animate__fadeIn">
-            <h1 class="font-display text-5xl md:text-8xl font-bold text-white mb-4">
-                La Confiance <br/> <span class="primary-highlight">n'est pas une option.</span>
+    <!-- Section Héros : L'Entrée de la Forteresse -->
+    <header class="min-h-screen flex flex-col justify-center items-center text-center p-6 relative">
+        <div class="absolute inset-0 bg-opacity-50" style="background-image: radial-gradient(var(--color-border) 1px, transparent 1px); background-size: 20px 20px;"></div>
+        <div class="relative z-10 animate__animated animate__fadeInDown">
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-gradient-gold mb-6">
+                Votre Confiance est<br/>notre Actif le plus Précieux.
             </h1>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto mb-10">
-                Nous ne construisons pas seulement une plateforme d'investissement. Nous architecturons un écosystème de sécurité. Voici le plan directeur.
+            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
+                Chez GoldInvest, nous ne nous contentons pas de le dire. Nous l'avons intégré dans chaque ligne de code, chaque protocole, chaque décision.
+                <br/><strong>Bienvenue dans notre forteresse de confiance.</strong>
             </p>
-            <a href="#blueprint" class="font-display font-bold py-3 px-8 text-lg rounded-md btn-cta">Voir le Plan</a>
+        </div>
+        <div class="scroll-indicator text-white animate__animated animate__fadeInUp animate__delay-1s">
+            <p class="mb-2 text-sm uppercase tracking-widest">Découvrir les fondations</p>
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
         </div>
     </header>
 
-    <!-- Section "Blueprint" -->
-    <main id="blueprint" class="py-20 md:py-32 container mx-auto px-6 space-y-24">
-
-        <!-- Module 1: Le Protocole TRON -->
-        <section class="grid md:grid-cols-2 gap-12 items-center animate__animated">
-            <div class="md:pr-12">
-                <p class="font-display font-bold primary-highlight mb-2">MODULE 01: FONDATION</p>
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Le Protocole TRON (TRC20)</h2>
-                <p class="leading-relaxed mb-6">
-                    Toute structure robuste repose sur une fondation solide. La nôtre est la blockchain TRON. Nous l'avons choisie pour sa vélocité, son efficacité et sa transparence cryptographique. Chaque transaction est une brique, vérifiable et immuable.
-                </p>
-                <div class="border-t border-dashed border-gray-700 pt-6 space-y-4">
-                    <p><strong class="text-white">Sécurité:</strong> Chaque transaction est un contrat cryptographique, public et inviolable.</p>
-                    <p><strong class="text-white">Rapidité:</strong> Confirmation en secondes, pas en jours. Votre capital travaille, il n'attend pas.</p>
-                    <p><strong class="text-white">Efficacité:</strong> Des frais de réseau minimes qui protègent votre rentabilité.</p>
-                </div>
-            </div>
-            <div class="glow-border rounded-lg p-8 h-full flex flex-col justify-center">
-                <p class="font-display text-2xl text-white">STATUT DU RÉSEAU</p>
-                <p class="primary-highlight font-display text-6xl font-bold my-4">Opérationnel</p>
-                <p class="text-sm">Toutes les transactions sont traitées via des contrats intelligents décentralisés.</p>
-            </div>
-        </section>
-
-        <!-- Module 2: L'Infrastructure de Sécurité -->
-        <section class="grid md:grid-cols-2 gap-12 items-center animate__animated">
-             <div class="glow-border rounded-lg p-8 h-full flex flex-col justify-center order-2 md:order-1">
-                <p class="font-display text-2xl text-white">NIVEAU DE PROTECTION</p>
-                <p class="primary-highlight font-display text-6xl font-bold my-4" style="animation: counter 2s ease-out forwards; counter-reset: num var(--num);"><span class="after:content-['%'] [counter-set:num_ var(--num)] after:content-[counter(num_,decimal-point)]"></span></p>
-                <p class="text-sm">Systèmes de défense multicouches actifs 24/7.</p>
-            </div>
-            <div class="md:pl-12 order-1 md:order-2">
-                <p class="font-display font-bold primary-highlight mb-2">MODULE 02: BLINDAGE</p>
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Notre Infrastructure de Défense</h2>
-                <p class="leading-relaxed mb-6">
-                    La fondation est protégée par un blindage numérique. Nous ne nous contentons pas de sécuriser, nous fortifions. Notre infrastructure est un système de défense proactif, conçu pour repousser les menaces avant même qu'elles n'approchent.
-                </p>
-                 <div class="border-t border-dashed border-gray-700 pt-6 space-y-4">
-                    <p><strong class="text-white">Cryptage de Bout en Bout:</strong> Vos données sont illisibles pour quiconque d'autre que vous.</p>
-                    <p><strong class="text-white">Stockage à Froid:</strong> La majorité des actifs sont conservés hors-ligne, inaccessibles aux attaques.</p>
-                    <p><strong class="text-white">Surveillance Intelligente:</strong> Des algorithmes et des experts humains analysent en permanence les activités suspectes.</p>
+    <main>
+        <!-- NIVEAU 1 : La Fondation Immuable -->
+        <section class="section-container">
+            <div class="section-number font-serif">01</div>
+            <div class="relative max-w-5xl mx-auto px-6 text-center animate__animated">
+                <h2 class="font-serif text-4xl md:text-5xl text-white mb-4">Le Sceau de la Blockchain TRON</h2>
+                <p class="text-lg mb-12 max-w-2xl mx-auto">Nous avons choisi TRON (TRC20) car c’est aujourd’hui l’une des blockchains les plus <strong class="text-white">rapides, économiques et sûres</strong> du marché.</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="feature-card p-6 rounded-lg">
+                        <div class="feature-card-icon w-12 h-12 rounded-lg flex items-center justify-center mb-4"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
+                        <h3 class="font-bold text-xl text-white mb-2">Sécurité Renforcée</h3>
+                        <p class="text-sm">Chaque transaction est immuable et inviolable, enregistrée sur un registre public.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-lg">
+                        <div class="feature-card-icon w-12 h-12 rounded-lg flex items-center justify-center mb-4"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                        <h3 class="font-bold text-xl text-white mb-2">Rapidité & Économie</h3>
+                        <p class="text-sm">Transferts confirmés en secondes avec des frais minimes pour maximiser votre rentabilité.</p>
+                    </div>
+                    <div class="feature-card p-6 rounded-lg">
+                        <div class="feature-card-icon w-12 h-12 rounded-lg flex items-center justify-center mb-4"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></div>
+                        <h3 class="font-bold text-xl text-white mb-2">Transparence Totale</h3>
+                        <p class="text-sm">Chaque opération est traçable via les explorateurs blockchain.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Module 3: Transparence & Responsabilité -->
-        <section class="text-center animate__animated">
-            <p class="font-display font-bold primary-highlight mb-2">MODULE 03: CONTRÔLE</p>
-            <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">La Transparence comme Principe</h2>
-            <p class="max-w-3xl mx-auto leading-relaxed mb-12">
-                La sécurité ultime est le contrôle. Nous vous donnons les clés. Votre tableau de bord n'est pas un simple rapport, c'est votre centre de commande. Chaque chiffre, chaque statut, chaque transaction est présenté avec une clarté absolue.
-            </p>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glow-border rounded-lg p-6"><h3 class="font-display text-xl font-bold text-white">Zéro Spéculation</h3><p class="mt-2 text-sm">Vos fonds sont utilisés pour vos investissements, point final.</p></div>
-                <div class="glow-border rounded-lg p-6"><h3 class="font-display text-xl font-bold text-white">Rapports Intuitifs</h3><p class="mt-2 text-sm">Des données claires pour des décisions éclairées.</p></div>
-                <div class="glow-border rounded-lg p-6"><h3 class="font-display text-xl font-bold text-white">Support Réactif</h3><p class="mt-2 text-sm">Une question ? Obtenez une réponse claire et rapide.</p></div>
+        <!-- NIVEAU 2 : Le Blindage Numérique -->
+        <section class="section-container">
+            <div class="section-number font-serif">02</div>
+            <div class="relative max-w-5xl mx-auto px-6 text-center animate__animated">
+                <h2 class="font-serif text-4xl md:text-5xl text-white mb-4">L'Infrastructure de Sécurité</h2>
+                <p class="text-lg mb-12 max-w-2xl mx-auto">Vos investissements sont conservés dans des portefeuilles numériques protégés par des <strong class="text-white">couches multiples de sécurité.</strong></p>
+                <div class="grid md:grid-cols-2 gap-8 text-left">
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-lg text-gradient-gold">Défense Active</h4>
+                        <p>Cryptage SSL/TLS, authentification à deux facteurs (2FA) et surveillance 24/7 de toutes les activités.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-lg text-gradient-gold">Protection des Actifs</h4>
+                        <p>Stockage à froid ("cold storage") pour la majorité des actifs, les rendant inaccessibles aux attaques en ligne.</p>
+                    </div>
+                     <div class="space-y-4">
+                        <h4 class="font-bold text-lg text-gradient-gold">Intégrité des Fonds</h4>
+                        <p>Nous ne spéculons jamais avec vos fonds. Chaque montant investi reste sous votre contrôle total.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-lg text-gradient-gold">Conformité Stricte</h4>
+                        <p>Nous opérons dans le respect des réglementations AML (Anti-Blanchiment) et KYC (Connaissance Client).</p>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- NIVEAU 3 : Le Contrat Humain -->
+        <section class="section-container">
+            <div class="section-number font-serif">03</div>
+             <div class="relative max-w-5xl mx-auto px-6 text-center animate__animated">
+                <h2 class="font-serif text-4xl md:text-5xl text-white mb-4">Une Relation Basée sur la Responsabilité</h2>
+                <p class="text-lg mb-12 max-w-2xl mx-auto">La technologie est notre outil, mais notre engagement envers vous est notre véritable mission.</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center p-4">
+                        <h3 class="font-bold text-xl text-white mb-2">Contrôle Total</h3>
+                        <p class="text-sm">Un accès clair à toutes vos opérations via un tableau de bord intuitif.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <h3 class="font-bold text-xl text-white mb-2">Rapports Détaillés</h3>
+                        <p class="text-sm">Des rapports clairs sur vos performances pour des décisions éclairées.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <h3 class="font-bold text-xl text-white mb-2">Support Professionnel</h3>
+                        <p class="text-sm">Notre équipe est disponible pour répondre à vos questions, en toute confidentialité.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-    
-    <!-- CTA Final -->
-    <footer class="py-20 md:py-32 text-center border-t border-gray-900">
-        <div class="container mx-auto px-6">
-             <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Investissez. <span class="primary-highlight">En toute sérénité.</span></h2>
-             <p class="max-w-2xl mx-auto text-lg mb-10">Notre architecture est conçue pour votre tranquillité d'esprit. L'étape suivante vous appartient.</p>
-             <a href="/register" class="font-display font-bold py-4 px-10 text-xl rounded-md btn-cta">Construire Mon Portefeuille</a>
+
+    <!-- Appel à l'action final -->
+    <footer class="py-20 md:py-32">
+        <div class="max-w-3xl mx-auto text-center px-6">
+            <h2 class="font-serif text-5xl md:text-6xl text-gradient-gold mb-6 animate__animated">Investissez avec Confiance.</h2>
+            <p class="text-lg text-slate-300 mb-10 animate__animated animate__delay-1s">La sécurité de vos transactions n’est pas un simple engagement, c’est une responsabilité que nous portons avec sérieux. Vous êtes prêt à construire sur des fondations solides ?</p>
+            <a href="/register" class="inline-block final-cta text-black font-bold text-lg py-4 px-10 rounded-lg shadow-lg shadow-yellow-500/20 transition-transform transform hover:scale-105 animate__animated animate__pulse animate__delay-2s animate__infinite">
+                Commencer à investir
+            </a>
         </div>
     </footer>
 
     <script>
-        // Effet "spotlight" qui suit la souris
-        const spotlight = document.querySelector('.spotlight');
-        document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth < 768) {
-                spotlight.style.opacity = '0';
-                return;
-            }
-            spotlight.style.transform = `translate(${e.clientX - spotlight.offsetWidth / 2}px, ${e.clientY - spotlight.offsetHeight / 2}px)`;
-            spotlight.style.opacity = '1';
-        });
-        document.addEventListener('mouseleave', () => {
-             spotlight.style.opacity = '0';
-        });
-
-        // Animation d'apparition au défilement
+        // Animations au défilement
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animate__animated', 'animate__fadeInUp');
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.animate__animated').forEach(el => {
-            observer.observe(el);
+            if (!el.classList.contains('animate__fadeInDown') && !el.classList.contains('animate__fadeInUp')) {
+                observer.observe(el);
+            }
         });
-
-        // Pattern pour le fond (optionnel, mais ajoute de la texture)
-        const gridPattern = document.createElement('div');
-        gridPattern.className = 'absolute inset-0 z-0';
-        gridPattern.style.backgroundImage = 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)';
-        gridPattern.style.backgroundSize = '30px 30px';
-        document.querySelector('.hero-about > div.absolute').appendChild(gridPattern);
     </script>
-
 </body>
 </html>
