@@ -15,29 +15,86 @@
         .profile-modal-content { padding: 24px; }
         .icon-btn { transition: all 0.2s ease; }
         .icon-btn:hover { transform: scale(1.1); }
+
+    #main-nav { transition: background-color 0.3s ease-out, box-shadow 0.3s ease-out; }
+    .nav-link-underline::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background-color: #f59e0b; transform: scaleX(0); transform-origin: bottom right; transition: transform 0.3s ease-out; }
+    .nav-link-underline:hover::after { transform: scaleX(1); transform-origin: bottom left; }
+    #burger-btn .line1, #burger-btn .line2, #burger-btn .line3 { transition: all 0.3s ease-in-out; }
+    #burger-btn.open .line1 { transform: translateY(8px) rotate(45deg); }
+    #burger-btn.open .line2 { opacity: 0; }
+    #burger-btn.open .line3 { transform: translateY(-8px) rotate(-45deg); }
+    #mobile-menu-fullscreen.open a, #mobile-menu-fullscreen.open button { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body class="font-inter bg-gray-900">
 
-    <nav class="bg-transparent p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold text-white"><span class="text-yellow-400">Gold</span>Invest</div>
-            <div class="flex items-center space-x-8">
-                <a href="/" class="text-white hover:text-yellow-400">Accueil</a>
-                <a href="/invest" class="text-white hover:text-yellow-400">Investir</a>
-                <a href="/about" class="text-white hover:text-yellow-400">À propos</a>
-                <a href="/contact" class="text-white hover:text-yellow-400">Contact</a>
-                <% if (username) { %>
-                    <div class="flex items-center space-x-4">
-                        <button id="profile-btn" class="btn btn-gold"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>Profil</button>
-                        <a href="/logout" class="btn btn-gold bg-red-600">Déconnexion</a>
-                    </div>
-                <% } else { %>
-                    <div class="flex items-center space-x-4"><a href="/login" class="btn btn-gold">Connexion</a><a href="/register" class="btn btn-gold">Inscription</a></div>
-                <% } %>
-            </div>
+   <nav id="main-nav" class="fixed top-0 left-0 w-full z-40 bg-transparent p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="text-2xl font-bold text-white tracking-wider"><span class="text-yellow-400">Gold</span>Invest</div>
+        
+        <div class="hidden md:flex items-center space-x-8">
+            <a href="/" class="text-white hover:text-yellow-400 relative nav-link-underline font-semibold">Accueil</a>
+            <a href="/invest" class="text-white hover:text-yellow-400 relative nav-link-underline font-semibold">Investir</a>
+            <a href="/about" class="text-white hover:text-yellow-400 relative nav-link-underline font-semibold">À propos</a>
+            <a href="/contact" class="text-white hover:text-yellow-400 relative nav-link-underline font-semibold">Contact</a>
+            
+            <div class="w-px h-6 bg-gray-500 mx-4"></div>
+
+            <% if (username) { %>
+                <div class="flex items-center space-x-4">
+                    <button id="profile-btn" class="btn btn-gold flex items-center space-x-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg><span>Profil</span></button>
+                    <a href="/logout" class="btn btn-gold bg-red-600">Déconnexion</a>
+                </div>
+            <% } else { %>
+                <div class="flex items-center space-x-4">
+                    <a href="/login" class="btn btn-gold">Connexion</a>
+                    <a href="/register" class="btn btn-gold">Inscription</a>
+                </div>
+            <% } %>
         </div>
-    </nav>
+
+        <div class="md:hidden">
+            <button id="burger-btn" class="text-white focus:outline-none z-50 space-y-2">
+                <div class="w-8 h-1 bg-white line1"></div>
+                <div class="w-8 h-1 bg-white line2"></div>
+                <div class="w-8 h-1 bg-white line3"></div>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div id="mobile-menu-fullscreen" class="fixed top-0 left-0 w-full h-screen  bg-opacity-95 backdrop-blur-sm z-30 flex items-center justify-center -translate-x-full transition-transform duration-500 ease-in-out">
+    <div class="text-center">
+        <% const links = [
+            { href: '/', text: 'Accueil' },
+            { href: '/invest', text: 'Investir' },
+            { href: '/about', text: 'À propos' },
+            { href: '/contact', text: 'Contact' },
+        ]; %>
+      <% links.forEach((link, index) => { %>
+    <a href="<%= link.href %>" 
+       class="mobile-nav-link block text-3xl font-bold text-white py-4 opacity-0 transform -translate-y-4 transition-all duration-500" 
+       data-delay="<%= 100 * (index + 1) %>">
+       <%= link.text %>
+    </a>
+<% }) %>
+        
+        <hr class="border-gray-700 my-6 w-1/2 mx-auto">
+
+        <% if (username) { %>
+            <div class="space-y-6">
+                <button id="profile-btn-mobile-premium" class="mobile-nav-link text-3xl font-bold text-white py-4 opacity-0 transform -translate-y-4 transition-all duration-500" style="transition-delay: 500ms;">Profil</button>
+                <a href="/logout" class="mobile-nav-link block text-xl font-semibold text-red-500 py-2 opacity-0 transform -translate-y-4 transition-all duration-500" style="transition-delay: 600ms;">Se déconnecter</a>
+            </div>
+        <% } else { %>
+            <div class="space-y-6">
+                <a href="/login" class="mobile-nav-link block text-3xl font-bold text-white py-4 opacity-0 transform -translate-y-4 transition-all duration-500" style="transition-delay: 500ms;">Connexion</a>
+                <a href="/register" class="mobile-nav-link block text-xl font-semibold text-yellow-400 py-2 opacity-0 transform -translate-y-4 transition-all duration-500" style="transition-delay: 600ms;">S'inscrire</a>
+            </div>
+        <% } %>
+    </div>
+</div>
+<main class="pt-24">
 
     <% if (username) { %><div class="text-center mb-4"><h2 class="text-2xl font-bold text-yellow-400 hover:text-yellow-300 transition-colors duration-300 cursor-pointer welcome-header">Bienvenue, <%= username %></h2></div><% } %>
 
@@ -84,7 +141,7 @@
         </div>
     </div>
     
-    <section class="hero">
+    <section class="hero ">
         <div class="hero-content  flex flex-col-reverse md:flex-row items-center justify-between px-6 py-16 max-w-7xl mx-auto">
             <div class="hero-text text-center md:text-left">
                 <h1 class="text-5xl md:text-6xl font-bold mb-6">Investissez dans l'Or du Futur</h1>
@@ -119,11 +176,12 @@
             </div>
         </div>
     </section>
+    </main>
 
     <footer class="bg-gray-900 text-white">
         <div class="content-wrapper">
             <div class="grid md:grid-cols-2 gap-8 py-12 px-6 text-center md:text-left">
-                <div><h3 class="text-2xl font-bold mb-4">GoldInvest</h3><p class="text-gray-400">2024 - Tous droits réservés</p></div>
+                <div><h3 class="text-2xl font-bold mb-4">GoldInvest</h3><p class="text-gray-400">2025 - Tous droits réservés</p></div>
                 <div class="flex flex-col space-y-4"><a href="/" class="hover:text-yellow-400 transition-colors duration-300">Accueil</a><a href="/about" class="hover:text-yellow-400 transition-colors duration-300">À propos</a><a href="/contact" class="hover:text-yellow-400 transition-colors duration-300">Contact</a></div>
             </div>
         </div>
@@ -134,7 +192,7 @@
         <button id="lightbox-close-btn" class="absolute top-4 right-4 text-white text-4xl font-bold hover:text-gray-300">×</button>
     </div>
 
-    <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-[1002]">
+    <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
         <div id="logout-modal-card" class="bg-white rounded-2xl shadow-xl w-full max-w-sm p-8 text-center transform scale-95 opacity-0 transition-all duration-300">
             <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-5">
                 <svg class="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -150,6 +208,34 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+
+     const nav = document.getElementById('main-nav');
+        const burgerBtn = document.getElementById('burger-btn');
+        const mobileMenu = document.getElementById('mobile-menu-fullscreen');
+        const profileBtnMobile = document.getElementById('profile-btn-mobile-premium');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                nav.classList.add('bg-gray-900', 'shadow-lg');
+            } else {
+                nav.classList.remove('bg-gray-900', 'shadow-lg');
+            }
+        });
+
+        burgerBtn.addEventListener('click', () => {
+            burgerBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('-translate-x-full');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        });
+
+        const originalProfileBtn = document.getElementById('profile-btn');
+        if (originalProfileBtn && profileBtnMobile) {
+            profileBtnMobile.addEventListener('click', () => {
+                burgerBtn.click(); 
+                originalProfileBtn.click();
+            });
+        }
     const elements = {
         profileBtn: document.getElementById('profile-btn'),
         closeModalBtn: document.getElementById('close-modal-btn'),
@@ -184,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutModal: document.getElementById('logout-confirm-modal'),
         logoutModalCard: document.getElementById('logout-modal-card'),
         logoutCancelBtn: document.getElementById('logout-cancel-btn'),
-        logoutTriggers: document.querySelectorAll('a[href="/logout"]')
+        logoutTriggers: document.querySelectorAll('a[href="/logout"]:not(#logout-confirm-btn)'),
     };
 
     const openModal = () => { elements.modalOverlay.classList.add('active'); elements.modal.classList.add('active'); loadAllData(); };
