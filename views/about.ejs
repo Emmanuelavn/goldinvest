@@ -3,95 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>À Propos de GoldInvest - Notre Pacte de Confiance</title>
-    <link href="https://cdn.tailwindcss.com/tailwindcss.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css"> <!-- Votre fichier de styles existant -->
+    <title>À propos de GoldInvest</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
     <style>
-        /* --- CHARTE GRAPHIQUE AMÉLIORÉE --- */
-        :root {
-            --color-bg: #111827; /* Bleu nuit très sombre */
-            --color-text: #9ca3af; /* Gris clair */
-            --color-text-strong: #f9fafb; /* Blanc cassé */
-            --color-primary-start: #f59e0b; /* Votre or de base */
-            --color-primary-end: #fbbf24; /* Or plus clair pour le dégradé */
-            --color-border: #374151; /* Gris plus soutenu pour les bordures */
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-bg);
-            color: var(--color-text);
-        }
-        .font-display { font-family: 'Syne', sans-serif; }
-        .text-gradient {
-            background: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Styles cohérents avec index.ejs */
+        .hero {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 4rem 0;
         }
 
-        /* --- Effet de projecteur qui suit le défilement --- */
-        #scroll-spotlight {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            pointer-events: none;
-            background: radial-gradient(circle 50vmax at 50% 0, rgba(245, 158, 11, 0.05), transparent 70%);
-            z-index: -1;
-            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 4rem 0;
         }
-        
-        /* --- Style des sections "salles" --- */
-        .sanctuary-room {
-            border-top: 1px solid var(--color-border);
-            padding: 8rem 0;
-            position: relative;
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
         }
-        .room-number {
-            position: absolute;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Syne', sans-serif;
-            font-size: 6rem;
+
+        .section-title {
+            color: #1e293b;
+            font-size: 2.5rem;
             font-weight: 800;
-            color: rgba(55, 65, 81, 0.2); /* Gris très transparent */
-            z-index: 1;
-        }
-        .room-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        /* --- Animation de ligne qui se dessine --- */
-        .animated-line {
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--color-primary-start), var(--color-primary-end));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .is-visible .animated-line {
-            transform: scaleX(1);
+            margin-bottom: 2rem;
+            text-align: center;
         }
 
-        /* --- Bouton final --- */
-        .btn-final-cta {
-            background: linear-gradient(135deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%);
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            border: 1px solid #e5e7eb;
             transition: all 0.3s ease;
         }
-        .btn-final-cta:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            border-color: #d1d5db;
+        }
+
+        .number-circle {
+            width: 60px;
+            height: 60px;
+            background: #f59e0b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        .gold-image {
+            background-image: url('/assets/img/gold_invest.jpeg');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            border-radius: 1rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        footer {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 0;
+        }
+
+        footer a {
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #f59e0b;
+        }
+
+        /* Amélioration de la lisibilité du texte */
+        .glass p {
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .glass h2 {
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+        }
+
+        .glass h3 {
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+        }
+
+        .glass .text-gray-600 {
+            color: #4b5563;
+        }
+
+        .glass .text-gray-700 {
+            color: #374151;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
-<body class="font-inter">
-    
-    <!-- VOTRE NAVBAR (INTACTE) -->
-    <nav class="bg-transparent p-4 absolute top-0 left-0 w-full z-50">
+<body class="font-inter bg-gray-50">
+    <nav class="bg-transparent p-4">
         <div class="container mx-auto flex justify-between items-center">
             <div class="text-2xl font-bold text-white">
                 <span class="text-yellow-400">Gold</span>Invest
@@ -102,104 +156,72 @@
             </div>
         </div>
     </nav>
-    
-    <div id="scroll-spotlight"></div>
 
-    <!-- HÉROS : La Porte d'Entrée du Sanctuaire -->
-    <header class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
-        <p class="font-semibold text-gradient uppercase tracking-widest mb-4 animate-reveal">Notre Pacte Fondateur</p>
-        <h1 class="font-display text-5xl md:text-7xl font-extrabold text-white mb-6 animate-reveal" style="animation-delay: 0.2s;">La Confiance n'est pas un engagement. <br class="hidden md:block"/> C'est une Architecture.</h1>
-        <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto animate-reveal" style="animation-delay: 0.4s;">
-            Chez GoldInvest, nous avons conçu un écosystème où votre sérénité n'est pas une promesse, mais le résultat d'une ingénierie de sécurité obsessionnelle.
-        </p>
-    </header>
-
-    <main>
-
-        <!-- SALLE N°1 : LA FONDATION BLOCKCHAIN -->
-        <section class="sanctuary-room">
-            <div class="room-number">01</div>
-            <div class="room-content container mx-auto px-6 text-center reveal-section">
-                <div class="inline-block mx-auto mb-6 animated-line"></div>
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-gradient mb-6">Le Sceau de la Blockchain TRON</h2>
-                <p class="max-w-3xl mx-auto text-lg leading-relaxed mb-12">
-                    Nous avons choisi la blockchain TRON (TRC20) comme fondation. Pourquoi ? Parce que c'est l'une des plus rapides, économiques et transparentes du marché. Chaque transaction est un bloc de granite, scellé dans un registre public, immuable et inviolable.
-                </p>
-                <div class="grid md:grid-cols-3 gap-8 text-left">
-                    <div class="border border-transparent hover:border-yellow-400/20 p-6 rounded-lg bg-gray-800/20 transition-all duration-300">
-                        <h3 class="font-display text-xl font-bold text-white mb-2">🔒 Sécurité Renforcée</h3>
-                        <p>Chaque opération est un contrat cryptographique. Une fois validée, elle est éternelle.</p>
-                    </div>
-                    <div class="border border-transparent hover:border-yellow-400/20 p-6 rounded-lg bg-gray-800/20 transition-all duration-300">
-                        <h3 class="font-display text-xl font-bold text-white mb-2">⚡ Rapidité Extrême</h3>
-                        <p>Confirmation en secondes, pas en jours. Votre capital travaille instantanément.</p>
-                    </div>
-                    <div class="border border-transparent hover:border-yellow-400/20 p-6 rounded-lg bg-gray-800/20 transition-all duration-300">
-                        <h3 class="font-display text-xl font-bold text-white mb-2">💰 Frais Minimes</h3>
-                        <p>Des coûts de transaction quasi nuls pour que chaque centime de votre retour vous appartienne.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SALLE N°2 : LE COFFRE-FORT NUMÉRIQUE -->
-        <section class="sanctuary-room">
-            <div class="room-number">02</div>
-            <div class="room-content container mx-auto px-6 text-center reveal-section">
-                <div class="inline-block mx-auto mb-6 animated-line"></div>
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-gradient mb-6">L'Infrastructure de Défense</h2>
-                <p class="max-w-3xl mx-auto text-lg leading-relaxed mb-12">
-                    Vos fonds ne sont pas simplement stockés. Ils sont gardés dans une forteresse numérique multi-couches. Nous ne spéculons jamais avec vos actifs. Ce que vous investissez reste sous votre contrôle, protégé par une infrastructure de sécurité de niveau institutionnel.
-                </p>
-                <div class="max-w-4xl mx-auto bg-gray-800/20 border border-gray-700/50 rounded-lg p-8 grid md:grid-cols-2 gap-8 text-left">
-                    <div>
-                        <h4 class="font-bold text-white mb-4">Protection des Données</h4>
-                        <ul class="space-y-2">
-                            <li><span class="text-yellow-400 mr-2">✓</span> Cryptage SSL/TLS de niveau bancaire.</li>
-                            <li><span class="text-yellow-400 mr-2">✓</span> Authentification à deux facteurs (2FA).</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white mb-4">Protection des Actifs</h4>
-                        <ul class="space-y-2">
-                            <li><span class="text-yellow-400 mr-2">✓</span> Stockage à froid ("Cold Storage") pour les actifs.</li>
-                            <li><span class="text-yellow-400 mr-2">✓</span> Surveillance 24/7 contre les intrusions.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- SALLE N°3 : LE PACTE DE TRANSPARENCE -->
-        <section class="sanctuary-room">
-            <div class="room-number">03</div>
-            <div class="room-content container mx-auto px-6 text-center reveal-section">
-                <div class="inline-block mx-auto mb-6 animated-line"></div>
-                <h2 class="font-display text-4xl md:text-5xl font-bold text-gradient mb-6">Le Pacte de Transparence</h2>
-                <p class="max-w-3xl mx-auto text-lg leading-relaxed mb-12">
-                   La technologie est notre outil, mais notre relation avec vous est notre véritable fondation. Nous opérons dans le respect strict des réglementations financières pour protéger notre communauté, et nous nous engageons à une clarté totale.
-                </p>
-                <p class="font-display text-2xl text-white italic">"Chez GoldInvest, votre confiance est notre actif le plus précieux."</p>
-            </div>
-        </section>
-
-    </main>
-    
-    <!-- CTA FINAL -->
-    <section class="py-24 text-center">
-        <div class="container mx-auto px-6">
-            <h2 class="font-display text-4xl md:text-6xl font-extrabold text-white mb-6">Investissez avec <span class="text-gradient">Confiance.</span></h2>
-            <p class="max-w-2xl mx-auto text-lg text-gray-400 mb-10">
-                La sécurité n'est pas une promesse, c'est une preuve. Nous avons bâti le sanctuaire, l'aventure vous attend.
+    <section class="hero">
+        <div class="content-wrapper text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                À propos de GoldInvest
+            </h1>
+            <p class="text-xl mb-8">
+                Découvrez notre plateforme d'investissement moderne et sécurisée
             </p>
-            <a href="/register" class="btn-final-cta inline-block text-gray-900 font-bold py-4 px-10 rounded-lg text-lg">
-                Commencer mon Investissement
-            </a>
         </div>
     </section>
 
-    <!-- VOTRE FOOTER (INTACT) -->
-    <footer class="bg-transparent text-white py-8 border-t border-gray-800">
+    <section class="glass">
+        <div class="content-wrapper">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="section-title">Notre Mission</h2>
+                    <p class="mb-6 text-gray-700">
+                        Chez GoldInvest, notre mission est de démocratiser l'investissement 
+                        dans l'or numérique en offrant une plateforme sécurisée et intuitive.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="feature-card">
+                            <div class="number-circle">1</div>
+                            <h3 class="text-xl font-bold mb-3">Sécurité</h3>
+                            <p class="text-gray-600">Transactions sécurisées via la blockchain TRON</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="number-circle">2</div>
+                            <h3 class="text-xl font-bold mb-3">Transparence</h3>
+                            <p class="text-gray-600">Un suivi en temps réel de vos investissements</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="number-circle">3</div>
+                            <h3 class="text-xl font-bold mb-3">Simplicité</h3>
+                            <p class="text-gray-600">Interface utilisateur intuitive et accessible</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="section-title">Notre Histoire</h2>
+                    <p class="mb-6 text-gray-700">
+                        Fondée en 2025, GoldInvest a été créée par des experts en finance 
+                        et en technologie blockchain. Notre objectif est de révolutionner 
+                        l'industrie de l'investissement en rendant l'or numérique accessible 
+                        à tous.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="feature-card">
+                            <div class="number-circle">2025</div>
+                            <h3 class="text-xl font-bold mb-3">Lancement</h3>
+                            <p class="text-gray-600">Lancement officiel de la plateforme</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="number-circle">Q2</div>
+                            <h3 class="text-xl font-bold mb-3">Expansion</h3>
+                            <p class="text-gray-600">Extension de nos services à l'international</p>
+                        <div class="flex items-start space-x-4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-transparent text-white py-8">
         <div class="container mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div>
@@ -213,41 +235,5 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        // Effet de projecteur qui suit le défilement
-        const spotlight = document.getElementById('scroll-spotlight');
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-            // Calcule la position verticale du projecteur
-            const spotlightY = (scrollY / (document.body.scrollHeight - windowHeight)) * 100;
-            spotlight.style.transform = `translateY(${spotlightY}vh)`;
-        });
-
-        // Animation d'apparition au défilement
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, { threshold: 0.5 }); // L'animation se déclenche quand 50% de la section est visible
-
-        document.querySelectorAll('.reveal-section').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Animation d'entrée pour le titre principal
-        document.querySelectorAll('.animate-reveal').forEach((el, index) => {
-            el.style.setProperty('--animate-duration', '1s');
-            setTimeout(() => {
-                el.classList.add('animate__animated', 'animate__fadeInUp');
-                el.style.opacity = '1';
-            }, index * 200);
-            el.style.opacity = '0';
-        });
-
-    </script>
 </body>
 </html>
