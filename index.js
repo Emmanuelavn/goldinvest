@@ -355,7 +355,7 @@ async function getTrxRate() {
         return cachedTrxRateInfo.rate;
     }
 
-    console.log(chalk.yellow('[TAUX DEBUG] CACHE MISS : Le cache est vide ou expiré. Préparation de l'appel API...'));
+    console.log(chalk.yellow("[TAUX DEBUG] CACHE MISS : Le cache est vide ou expiré. Préparation de l'appel API..."));
     try {
         const apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=tron&vs_currencies=usd';
         console.log(chalk.yellow(`[TAUX DEBUG] Tentative d'appel à l'URL : ${apiUrl}`));
