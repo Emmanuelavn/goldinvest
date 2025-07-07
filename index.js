@@ -346,29 +346,12 @@ async function getTrxRate() {
     const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
       params: { ids: 'tron', vs_currencies: 'usd' }
     });
-
-    // On vérifie que la réponse de l'API est bien celle attendue
-    if (!response.data || !response.data.tron || !response.data.tron.usd) {
-        throw new Error("Réponse invalide de l'API CoinGecko. Le format a peut-être changé.");
-    }
-
     const usdRate = response.data.tron.usd;
-    const usdToFcfRate = 600; // Approximation
-    const trxToFcfRate = usdRate * usdToFcfRate;
-    
-    // Log pour voir le taux réel récupéré, c'est utile pour le débogage
-    console.log(`[TAUX] Taux TRX/FCFA calculé : ${trxToFcfRate.toFixed(4)}`);
-    
-    return trxToFcfRate;
-
+    const usdToFcfRate = 600; 
+    return usdRate * usdToFcfRate;
   } catch (error) {
-    // Si une erreur se produit (réseau, format de réponse, etc.)
-    console.error('[ERREUR TAUX] Impossible de récupérer le taux de change :', error.message);
-    
-    // On propage l'erreur au lieu de retourner une fausse valeur.
-    // La route qui a appelé cette fonction (ex: /payment) va attraper cette erreur
-    // dans son propre bloc try...catch et s'arrêter proprement.
-    throw new Error("Le service de taux de change est temporairement indisponible.");
+    console.error('Erreur lors de la récupération du taux de change de CoinGecko:', error.message);
+    return 80;
   }
 }
 
