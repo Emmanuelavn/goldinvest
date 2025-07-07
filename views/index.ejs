@@ -63,7 +63,7 @@
     </div>
 </nav>
 
-<div id="mobile-menu-fullscreen" class="fixed top-0 left-0 w-full h-screen  bg-opacity-95 backdrop-blur-sm z-30 flex items-center justify-center -translate-x-full transition-transform duration-500 ease-in-out">
+<div id="mobile-menu-fullscreen" class=" hidden fixed top-0 left-0 w-full h-screen bg-black bg-opacity-95 backdrop-blur-sm z-30 flex items-center justify-center -translate-x-full transition-transform duration-500 ease-in-out">
     <div class="text-center">
         <% const links = [
             { href: '/', text: 'Accueil' },
@@ -73,7 +73,7 @@
         ]; %>
       <% links.forEach((link, index) => { %>
     <a href="<%= link.href %>" 
-       class="mobile-nav-link block text-3xl font-bold text-white py-4 opacity-0 transform -translate-y-4 transition-all duration-500" 
+       class="mobile-nav-link block text-3xl font-bold text-white py-4  transform  transition-all duration-500" 
        data-delay="<%= 100 * (index + 1) %>">
        <%= link.text %>
     </a>
@@ -83,8 +83,8 @@
 
         <% if (username) { %>
             <div class="space-y-6">
-                <button id="profile-btn-mobile-premium" class="mobile-nav-link text-3xl font-bold text-white py-4 opacity-0 transform -translate-y-4 transition-all duration-500" style="transition-delay: 500ms;">Profil</button>
-                <a href="/logout" class="mobile-nav-link block text-xl font-semibold text-red-500 py-2 opacity-0 transform -translate-y-4 transition-all duration-500" style="transition-delay: 600ms;">Se déconnecter</a>
+                <button id="profile-btn-mobile-premium" class="mobile-nav-link text-3xl font-bold text-white py-4  transform  transition-all duration-500" style="transition-delay: 500ms;">Profil</button>
+                <a href="/logout" class="mobile-nav-link block text-xl font-semibold text-red-500 py-2  transform  transition-all duration-500" style="transition-delay: 600ms;">Se déconnecter</a>
             </div>
         <% } else { %>
             <div class="space-y-6">
@@ -222,12 +222,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        burgerBtn.addEventListener('click', () => {
-            burgerBtn.classList.toggle('open');
-            mobileMenu.classList.toggle('-translate-x-full');
-            mobileMenu.classList.toggle('open');
-            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
-        });
+     burgerBtn.addEventListener('click', () => {
+    const isCurrentlyOpen = burgerBtn.classList.contains('open');
+
+    if (isCurrentlyOpen) {
+        // Logique pour FERMER le menu
+        burgerBtn.classList.remove('open');
+        mobileMenu.classList.add('-translate-x-full');
+        document.body.style.overflow = 'auto';
+        setTimeout(() => {
+            mobileMenu.classList.add('hidden');
+        }, 500); // Attend la fin de l'animation de 500ms
+    } else {
+        // Logique pour OUVRIR le menu
+        burgerBtn.classList.add('open');
+        mobileMenu.classList.remove('hidden'); // Affiche l'élément d'abord
+        setTimeout(() => {
+            // Lance l'animation de glissement juste après
+            mobileMenu.classList.remove('-translate-x-full');
+        }, 10); // Petit délai pour que le navigateur comprenne
+        document.body.style.overflow = 'hidden';
+    }
+});
 
         const originalProfileBtn = document.getElementById('profile-btn');
         if (originalProfileBtn && profileBtnMobile) {
