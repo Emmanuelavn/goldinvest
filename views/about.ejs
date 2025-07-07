@@ -3,237 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>À propos de GoldInvest</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css">
+    <title>Notre Engagement Sécurité - GoldInvest</title>
+    <link href="https://cdn.tailwindcss.com/tailwindcss.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        /* Styles cohérents avec index.ejs */
-        .hero {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-            padding: 4rem 0;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Fond très clair */
         }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 4rem 0;
+        .hero-about {
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.7)), url('/assets/img/gold_invest.jpeg');
+            background-size: cover;
+            background-position: center;
         }
 
-        .content-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
+        .gradient-text {
+            background: -webkit-linear-gradient(45deg, #FDB813, #F59E0B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .section-title {
-            color: #1e293b;
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .feature-card {
+        .section-card {
             background: white;
-            padding: 2rem;
             border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease-in-out;
         }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            border-color: #d1d5db;
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
         }
 
-        .number-circle {
-            width: 60px;
-            height: 60px;
-            background: #f59e0b;
+        .icon-wrapper {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
             border-radius: 50%;
+            width: 4rem;
+            height: 4rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .btn-cta {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px; /* Pill shape */
             font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
             transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-
-        .gold-image {
-            background-image: url('/assets/img/gold_invest.jpeg');
-            background-size: cover;
-            background-position: center;
-            height: 300px;
-            border-radius: 1rem;
-            margin: 2rem 0;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        }
-
-        footer {
-            background: #1e293b;
-            color: white;
-            padding: 3rem 0;
-        }
-
-        footer a {
-            color: white;
-            transition: color 0.3s ease;
-        }
-
-        footer a:hover {
-            color: #f59e0b;
-        }
-
-        /* Amélioration de la lisibilité du texte */
-        .glass p {
-            color: #1e293b;
-            line-height: 1.6;
-        }
-
-        .glass h2 {
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-        }
-
-        .glass h3 {
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-        }
-
-        .glass .text-gray-600 {
-            color: #4b5563;
-        }
-
-        .glass .text-gray-700 {
-            color: #374151;
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 3rem 0;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .feature-card {
-                padding: 1.5rem;
-            }
+        .btn-cta:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 7px 20px rgba(245, 158, 11, 0.5);
         }
     </style>
 </head>
-<body class="font-inter bg-gray-50">
-    <nav class="bg-transparent p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold text-white">
-                <span class="text-yellow-400">Gold</span>Invest
-            </div>
-            <div class="flex items-center space-x-4">
-                <a href="/" class="text-white hover:text-yellow-400">Accueil</a>
-                <a href="/contact" class="text-white hover:text-yellow-400">Contact</a>
-            </div>
-        </div>
-    </nav>
+<body class="antialiased">
 
-    <section class="hero">
-        <div class="content-wrapper text-center">
-            <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                À propos de GoldInvest
-            </h1>
-            <p class="text-xl mb-8">
-                Découvrez notre plateforme d'investissement moderne et sécurisée
+    <!-- Section Héros - L'Accroche -->
+    <section class="hero-about text-white py-20 md:py-32">
+        <div class="container mx-auto px-6 text-center animate__animated animate__fadeIn">
+            <h1 class="text-4xl md:text-6xl font-black leading-tight mb-4">Votre Confiance, Notre Actif le Plus Précieux.</h1>
+            <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+                Chez GoldInvest, nous savons que l'investissement repose sur une chose essentielle : la confiance. Découvrez comment nous avons bâti une forteresse numérique pour protéger votre sérénité financière.
             </p>
         </div>
     </section>
 
-    <section class="glass">
-        <div class="content-wrapper">
-            <div class="grid md:grid-cols-2 gap-12">
-                <div>
-                    <h2 class="section-title">Notre Mission</h2>
-                    <p class="mb-6 text-gray-700">
-                        Chez GoldInvest, notre mission est de démocratiser l'investissement 
-                        dans l'or numérique en offrant une plateforme sécurisée et intuitive.
-                    </p>
-                    <div class="space-y-6">
-                        <div class="feature-card">
-                            <div class="number-circle">1</div>
-                            <h3 class="text-xl font-bold mb-3">Sécurité</h3>
-                            <p class="text-gray-600">Transactions sécurisées via la blockchain TRON</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="number-circle">2</div>
-                            <h3 class="text-xl font-bold mb-3">Transparence</h3>
-                            <p class="text-gray-600">Un suivi en temps réel de vos investissements</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="number-circle">3</div>
-                            <h3 class="text-xl font-bold mb-3">Simplicité</h3>
-                            <p class="text-gray-600">Interface utilisateur intuitive et accessible</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h2 class="section-title">Notre Histoire</h2>
-                    <p class="mb-6 text-gray-700">
-                        Fondée en 2025, GoldInvest a été créée par des experts en finance 
-                        et en technologie blockchain. Notre objectif est de révolutionner 
-                        l'industrie de l'investissement en rendant l'or numérique accessible 
-                        à tous.
-                    </p>
-                    <div class="space-y-6">
-                        <div class="feature-card">
-                            <div class="number-circle">2025</div>
-                            <h3 class="text-xl font-bold mb-3">Lancement</h3>
-                            <p class="text-gray-600">Lancement officiel de la plateforme</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="number-circle">Q2</div>
-                            <h3 class="text-xl font-bold mb-3">Expansion</h3>
-                            <p class="text-gray-600">Extension de nos services à l'international</p>
-                        <div class="flex items-start space-x-4">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Section Principale - Le Cœur de la Confiance -->
+    <main class="py-16 md:py-24">
+        <div class="container mx-auto px-6 space-y-20">
 
-    <footer class="bg-transparent text-white py-8">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div>
-                    <h3 class="text-xl font-bold">GoldInvest</h3>
-                    <p class="text-gray-400"> 2025 GoldInvest. Tous droits réservés.</p>
+            <!-- 1. La Technologie TRON -->
+            <section class="flex flex-col md:flex-row items-center gap-12 animate__animated animate__fadeInUp">
+                <div class="md:w-1/2">
+                    <span class="font-bold gradient-text uppercase tracking-wider">La Puissance de la Blockchain</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2 mb-6">Transactions sur la Blockchain TRON (TRC20)</h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        Nous avons fait le choix stratégique d’intégrer la blockchain TRON pour toutes les transactions. Pourquoi ? Parce qu'elle est aujourd'hui l'une des plus rapides, économiques et sûres du marché, offrant une transparence totale.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start"><div class="icon-wrapper mr-4 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg></div><div><h4 class="font-bold text-gray-800">Sécurité Renforcée</h4><p class="text-gray-500">Chaque transaction est immuable et inviolable, gravée sur la blockchain.</p></div></div>
+                        <div class="flex items-start"><div class="icon-wrapper mr-4 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></div><div><h4 class="font-bold text-gray-800">Rapidité Éclair</h4><p class="text-gray-500">Transferts confirmés en quelques secondes, sans délais bancaires.</p></div></div>
+                        <div class="flex items-start"><div class="icon-wrapper mr-4 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div><div><h4 class="font-bold text-gray-800">Frais Minimes</h4><p class="text-gray-500">Des coûts de transaction très faibles pour maximiser votre rentabilité.</p></div></div>
+                    </div>
                 </div>
-                <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="/" class="text-gray-400 hover:text-white">Accueil</a>
-                    <a href="/contact" class="text-gray-400 hover:text-white">Contact</a>
+                <div class="md:w-1/2">
+                    <img src="/assets/img/blockchain-visual.svg" alt="Visualisation de la blockchain" class="w-full h-auto animate__animated animate__pulse animate__infinite animate__slower">
                 </div>
+            </section>
+
+            <!-- 2. Infrastructure de Sécurité -->
+            <section class="section-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+                <div class="text-center">
+                    <span class="font-bold gradient-text uppercase tracking-wider">Infrastructure Robuste</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mt-2 mb-8">Une Forteresse Numérique pour Vos Actifs</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                    <div class="flex flex-col items-center"><div class="icon-wrapper mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg></div><h4 class="font-bold text-gray-800">Cryptage SSL/TLS</h4><p class="text-gray-500">De niveau bancaire pour protéger toutes les communications.</p></div>
+                    <div class="flex flex-col items-center"><div class="icon-wrapper mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.786-2.874 9.574M12 11c0-3.517 1.009-6.786 2.874-9.574m0 19.148a10.024 10.024 0 01-5.748 0m5.748 0a10.024 10.024 0 005.748 0M12 11v-1m0 1v1m0 0v-1m0 0h-1m1 0h1" /></svg></div><h4 class="font-bold text-gray-800">Surveillance 24/7</h4><p class="text-gray-500">Nos systèmes sont surveillés en temps réel contre les menaces.</p></div>
+                    <div class="flex flex-col items-center"><div class="icon-wrapper mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286z" /></svg></div><h4 class="font-bold text-gray-800">Conformité AML/KYC</h4><p class="text-gray-500">Respect des standards pour un environnement sain et professionnel.</p></div>
+                    <div class="flex flex-col items-center"><div class="icon-wrapper mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5V4H4zm0 11v5h5v-5H4zm11-11v5h5V4h-5zm0 11v5h5v-5h-5z" /></svg></div><h4 class="font-bold text-gray-800">Stockage à Froid</h4><p class="text-gray-500">Les actifs numériques sont protégés hors ligne contre les risques externes.</p></div>
+                </div>
+                <p class="text-center mt-8 text-gray-600 font-medium">Nous ne spéculons jamais avec vos fonds. Chaque montant investi reste sous votre contrôle, en toute transparence.</p>
+            </section>
+
+            <!-- 3. CTA Final - L'Appel à l'Action -->
+            <section class="text-center animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Prêt à investir avec confiance ?</h2>
+                <p class="max-w-2xl mx-auto text-gray-600 mb-8">
+                    La sécurité de vos transactions n’est pas un simple engagement, c’est une responsabilité que nous portons avec le plus grand sérieux. Rejoignez une plateforme où vous pouvez investir en toute tranquillité.
+                </p>
+                <a href="/register" class="btn-cta inline-block">Commencer mon investissement</a>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p>© 2024 GoldInvest. Tous droits réservés.</p>
+            <div class="mt-4 space-x-6">
+                <a href="/" class="hover:text-yellow-400">Accueil</a>
+                <a href="/contact" class="hover:text-yellow-400">Contact</a>
             </div>
         </div>
     </footer>
+
 </body>
 </html>
