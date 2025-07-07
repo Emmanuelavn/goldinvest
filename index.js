@@ -13,6 +13,8 @@ const path = require('path');
 const db = require('./db'); // Maintenant, db est déjà promisifié
 const crypto = require('crypto');
 const chalk = require('chalk');
+let cachedTrxRateInfo = { rate: 0, lastFetched: 0 };
+const CACHE_DURATION = 5 * 60 * 1000;
 
 const tronWeb = new TronWeb({ fullHost: 'https://api.trongrid.io', headers: { "TRON-PRO-API-KEY": "c04fc1f5-5e66-41c2-a00a-70b4e368614f" } });
 const storage = multer.diskStorage({ destination: (req, file, cb) => cb(null, 'public/uploads/'), filename: (req, file, cb) => cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`) });
@@ -341,18 +343,38 @@ app.get('/payment', checkAuth, async (req, res) => {
     }
 });
 
+
+
 async function getTrxRate() {
-  try {
-    const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
-      params: { ids: 'tron', vs_currencies: 'usd' }
-    });
-    const usdRate = response.data.tron.usd;
-    const usdToFcfRate = 600; 
-    return usdRate * usdToFcfRate;
-  } catch (error) {
-    console.error('Erreur lors de la récupération du taux de change de CoinGecko:', error.message);
-    return 80;
-  }
+    const now = Date.now();
+    if (cachedTrxRateInfo.rate > 0 && (now - cachedTrxRateInfo.lastFetched) < CACHE_DURATION) {
+        return cachedTrxRateInfo.rate;
+    }
+
+    try {
+        const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
+            params: { ids: 'tron', vs_currencies: 'usd' }
+        });
+
+        if (!response.data || !response.data.tron || !response.data.tron.usd) {
+            throw new Error("Réponse invalide de l'API CoinGecko.");
+        }
+
+        const usdRate = response.data.tron.usd;
+        const usdToFcfRate = 600;
+        const newRate = usdRate * usdToFcfRate;
+
+        cachedTrxRateInfo = { rate: newRate, lastFetched: now };
+        
+        return newRate;
+
+    } catch (error) {
+        console.error("Erreur API - Utilisation du cache si disponible:", error.message);
+        if (cachedTrxRateInfo.rate > 0) {
+            return cachedTrxRateInfo.rate;
+        }
+        throw new Error("Service de taux de change indisponible et aucun cache récent.");
+    }
 }
 
 const REFERRAL_BONUS_AMOUNT = 1000;
