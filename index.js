@@ -345,34 +345,51 @@ app.get('/payment', checkAuth, async (req, res) => {
 
 
 
+// VERSION DE DÉBOGAGE ULTIME
 async function getTrxRate() {
     const now = Date.now();
+    console.log(chalk.cyan('[TAUX DEBUG] Début de la fonction getTrxRate.'));
+
     if (cachedTrxRateInfo.rate > 0 && (now - cachedTrxRateInfo.lastFetched) < CACHE_DURATION) {
+        console.log(chalk.green(`[TAUX DEBUG] CACHE HIT : Taux trouvé en cache (${cachedTrxRateInfo.rate}). Pas d'appel API.`));
         return cachedTrxRateInfo.rate;
     }
 
+    console.log(chalk.yellow('[TAUX DEBUG] CACHE MISS : Le cache est vide ou expiré. Préparation de l'appel API...'));
     try {
-        const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
-            params: { ids: 'tron', vs_currencies: 'usd' }
-        });
+        const apiUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=tron&vs_currencies=usd';
+        console.log(chalk.yellow(`[TAUX DEBUG] Tentative d'appel à l'URL : ${apiUrl}`));
+
+        const response = await axios.get(apiUrl);
+
+        console.log(chalk.green('[TAUX DEBUG] API SUCCESS : Réponse reçue de CoinGecko.'));
 
         if (!response.data || !response.data.tron || !response.data.tron.usd) {
+            console.error(chalk.red('[TAUX DEBUG] Erreur : Format de réponse API invalide.'));
             throw new Error("Réponse invalide de l'API CoinGecko.");
         }
 
         const usdRate = response.data.tron.usd;
-        const usdToFcfRate = 600;
-        const newRate = usdRate * usdToFcfRate;
-
-        cachedTrxRateInfo = { rate: newRate, lastFetched: now };
+        const newRate = usdRate * 600;
         
+        cachedTrxRateInfo = { rate: newRate, lastFetched: now };
+        console.log(chalk.blue.bold(`[TAUX DEBUG] Nouveau taux mis en cache : ${newRate}`));
         return newRate;
 
     } catch (error) {
-        console.error("Erreur API - Utilisation du cache si disponible:", error.message);
+        console.error(chalk.red.bold('[TAUX DEBUG] L\'APPEL API A ÉCHOUÉ. Erreur interceptée :'), error.message);
+        
+        // On affiche les détails de l'erreur si disponibles (très important)
+        if (error.response) {
+            console.error(chalk.red.bold('[TAUX DEBUG] Détails de l\'erreur :'), `Statut ${error.response.status}`, error.response.data);
+        }
+
         if (cachedTrxRateInfo.rate > 0) {
+            console.warn(chalk.yellow('[TAUX DEBUG] L\'API a échoué, mais un ancien cache existe. Utilisation de l\'ancien taux.'));
             return cachedTrxRateInfo.rate;
         }
+
+        console.error(chalk.red.bold('[TAUX DEBUG] L\'API a échoué et aucun cache n\'existe. Levée d\'une erreur fatale.'));
         throw new Error("Service de taux de change indisponible et aucun cache récent.");
     }
 }
